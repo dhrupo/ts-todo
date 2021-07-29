@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AddToList from "./AddToList/AddtoList";
+import List from "./List/List";
+import "./App.css";
 
-function App() {
+export interface IState {
+  todo: {
+    id: number;
+    title: string;
+    start: string;
+    end: string;
+  }[];
+  handleRemove: (id: number) => void;
+}
+
+const App = () => {
+  const [todo, setTodo] = useState<IState["todo"]>([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container w-50 my-3">
+      <div className="card shadow">
+        <h2 className="text-center card-header">Todo for today!</h2>
+        <div className="card-body p-3">
+          <AddToList todo={todo} setTodo={setTodo}></AddToList>
+        </div>
+      </div>
+      <div>
+        <List todo={todo} setTodo={setTodo}></List>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
